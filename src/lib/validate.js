@@ -9,7 +9,7 @@ import { STATES } from "./schedule";
 export function validateSchedule({ names, states, pCount }) {
   const alerts = [];
 
-  const firstPDay = pCount.findIndex(x => x > 0);
+  const firstPDay = pCount.findIndex(x => x === 2);
 
   // 1) Conteo P por día
   for (let d = 0; d < pCount.length; d++) {
