@@ -188,7 +188,7 @@ function scoreOffsets({ W, R, I, horizon, starts }) {
     }
   }
 
-  const firstPDay = pCount.findIndex(x => x > 0);
+  const firstPDay = pCount.findIndex(x => x === 2);
 
   let threeP = 0;
   let notTwoAfterP = 0;
@@ -209,3 +209,4 @@ function scoreOffsets({ W, R, I, horizon, starts }) {
     isPerfect: threeP === 0 && notTwoAfterP === 0
   };
 }
+
