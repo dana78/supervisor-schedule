@@ -142,17 +142,30 @@ export function buildSchedule({ W, R, I, totalPerforationDays }) {
     }
   }
 
-  const days = endDay + 1;
+// Empezamos a mostrar el cronograma desde el primer día con 2 perforando
+const firstOperationalDay = pCount.findIndex(x => x === 2);
+const startView = firstOperationalDay === -1 ? 0 : firstOperationalDay;
 
-  return {
-    params: { W, R, I, totalPerforationDays },
-    starts,
-    days,
-    names,
-    states: states.map(row => row.slice(0, days)),
-    pCount: pCount.slice(0, days),
-    diagnostics: best.diagnostics
-  };
+const days = endDay - startView + 1;
+
+return {
+  params: { W, R, I, totalPerforationDays },
+  starts,
+  days,
+  names,
+  states: states.map(row => row.slice(startView, startView + days)),
+  pCount: pCount.slice(startView, startView + days),
+  diagnostics: {
+    ...best.diagnostics,
+    startView
+  }
+};
+
+
+
+
+
+  
 }
 
 function findBestOffsets({ W, R, I, horizon, startS1 }) {
@@ -209,4 +222,5 @@ function scoreOffsets({ W, R, I, horizon, starts }) {
     isPerfect: threeP === 0 && notTwoAfterP === 0
   };
 }
+
 
